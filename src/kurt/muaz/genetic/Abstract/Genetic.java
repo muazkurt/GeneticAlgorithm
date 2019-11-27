@@ -1,4 +1,4 @@
-package kurt.muaz.genetic.Abstract;
+package src.kurt.muaz.genetic.Abstract;
 
 import java.util.Random;
 //Min class

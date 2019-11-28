@@ -1,7 +1,7 @@
-package src.kurt.muaz.genetic;
+package kurt.muaz.genetic;
 
-import src.kurt.muaz.genetic.Abstract.Genetic;
-import src.kurt.muaz.genetic.Abstract.Population;
+import kurt.muaz.genetic.Abstract.Genetic;
+import kurt.muaz.genetic.Abstract.Population;
 
 import java.util.Random;
 

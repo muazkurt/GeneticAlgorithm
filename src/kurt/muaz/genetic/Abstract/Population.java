@@ -1,11 +1,11 @@
-package src.kurt.muaz.genetic.Abstract;
+package kurt.muaz.genetic.Abstract;
 
 import java.util.Random;
 
 //Population class
 public class Population
 {
-	public static final int popSize = 14;
+	public static final int popSize = 20;
 	private Individual[] individuals = new Individual[popSize];
 	private double total	= 0;
 
@@ -39,10 +39,8 @@ public class Population
 
 	void mutate()
 	{
-		Random rn = new Random();
-		int to_mutate = rn.nextInt(Population.popSize / 2);
-		for (int i = 0; i < to_mutate; i++)
-			individuals[rn.nextInt(Population.popSize)].mutate();
+		individuals[0].mutate();
+		individuals[1].mutate();
 	}
 
 	public double getTotal()
@@ -57,9 +55,12 @@ public class Population
 
 	public void select(int first, int sec)
 	{
-		for (int i = 0; i < popSize; i++) {
-			if (i == first || i == sec) ;
-			else individuals[i] = new Individual();
-		}
+		individuals[Population.popSize - 1] = individuals[first];
+		individuals[Population.popSize - 2] = individuals[sec];
+		Random rn = new Random();
+		for (int i = 0; i < Population.popSize - 2; i++)
+			if (!(i == first || i == sec))
+				if (rn.nextInt(10) < 2)
+					individuals[i] = new Individual();
 	}
 }

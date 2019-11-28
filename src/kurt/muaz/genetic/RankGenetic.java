@@ -1,7 +1,6 @@
-package src.kurt.muaz.genetic;
+package kurt.muaz.genetic;
 
-import src.kurt.muaz.genetic.Abstract.Genetic;
-import src.kurt.muaz.genetic.Abstract.Population;
+import kurt.muaz.genetic.Abstract.Genetic;
 
 public class RankGenetic extends Genetic
 {

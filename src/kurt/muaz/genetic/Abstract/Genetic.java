@@ -1,4 +1,4 @@
-package src.kurt.muaz.genetic.Abstract;
+package kurt.muaz.genetic.Abstract;
 
 import java.util.Random;
 //Min class
@@ -23,13 +23,13 @@ public abstract class Genetic {
 	public abstract void selection();
 
 	//Crossover
-	public void crossover()
+	private void crossover()
 	{
 		fittest.crossover(secondFittest);
 	}
 
 	//Mutation
-	public void mutation()
+	private void mutation()
 	{
 		Random rn = new Random();
 		if (rn.nextInt() % 20 <= 12)

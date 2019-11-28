@@ -1,9 +1,12 @@
-package src.kurt.muaz.genetic.Abstract;
+package kurt.muaz.genetic.Abstract;
 
 import java.util.Random;
-//Individual class
+
+/**
+ * Class that contains 2 double values in geneLength sized bit array with encoding them in Gray Code.
+ */
 public class Individual {
-	private final static int geneLength = 21;
+	private final static int geneLength = 24;
 	private double			fitness = 0.0,
 							Allele_x1,
 							Allele_x2;
@@ -11,12 +14,7 @@ public class Individual {
 	private StringBuilder	gene_x1,
 							gene_x2;
 
-	 /**
-	  * (0 + k * 5 / 2^12)
-	  * 011 10010 and  100 11110  and the crossover point is between bits 3 and 4 (where bits are numbered from left to right starting at 1), then the children are   
-	  * 011 11110 and  100 10010
-	  */
-	public Individual()
+	Individual()
 	{
 		Random rn = new Random();
 		int x1 = Math.abs(rn.nextInt() % (int)Math.pow(2.0, geneLength)),
@@ -52,28 +50,28 @@ public class Individual {
 
 	public double getFitness() {return fitness;}
 
-	public void mutate()
+	void mutate()
 	{
 		Random rn = new Random();
 		StringBuilder	X1_LOCAL = new StringBuilder(gene_x1),
 						X2_LOCAL = new StringBuilder(gene_x2);
 		do {
 			gene_x1 = X1_LOCAL;
-			gene_x1 = X2_LOCAL;
+			gene_x2 = X2_LOCAL;
 			int point = rn.nextInt(Individual.geneLength - 1) + 1;
 			gene_x1.setCharAt(point, (gene_x1.charAt(point) == '0' ? '1' : '0'));
 			gene_x2.setCharAt(point, (gene_x2.charAt(point) == '0' ? '1' : '0'));
 		} while(!calculate_alleles());
 	}
 
-	public void crossover(Individual other)
+	void crossover(Individual other)
 	{
 		Random rn = new Random();
 		//Select a random crossover point
-		StringBuilder	X1_LOCAL = new StringBuilder(gene_x1),
-						X2_LOCAL = new StringBuilder(gene_x2),
-						X1_OTHER = new StringBuilder(other.gene_x1),
-						X2_OTHER = new StringBuilder(other.gene_x2);
+		StringBuilder X1_LOCAL = new StringBuilder(gene_x1),
+				X2_LOCAL = new StringBuilder(gene_x2),
+				X1_OTHER = new StringBuilder(other.gene_x1),
+				X2_OTHER = new StringBuilder(other.gene_x2);
 		do {
 			gene_x1 = X1_LOCAL;
 			gene_x2 = X2_LOCAL;
@@ -90,12 +88,9 @@ public class Individual {
 			temp = gene_x2.substring(point_begin, point_end);
 			gene_x2.replace(point_begin, point_end, other.gene_x2.substring(point_begin, point_end));
 			other.gene_x2.replace(point_begin, point_end, temp);
-			if(gene_x1.length() != gene_x2.length() || gene_x1.length() != other.gene_x2.length() || other.gene_x1.length() != other.gene_x2.length())
+			if (gene_x1.length() != gene_x2.length() || gene_x1.length() != other.gene_x2.length() || other.gene_x1.length() != other.gene_x2.length())
 				System.exit(-1);
 		} while (!(calculate_alleles() && other.calculate_alleles()));
-		//System.out.println(this);
-		//System.out.println(other);
-		//System.out.println("OW YES GECELER");
 	}
 
 	private boolean calculate_alleles()
